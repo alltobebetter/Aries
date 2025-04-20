@@ -7,10 +7,10 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-API_BASE_URL = "https://api.gptgod.online/v1"
+API_BASE_URL = "https://api.openai.com/v1"
 API_CHAT_URL = f"{API_BASE_URL}/chat/completions"
 API_FILE_URL = f"{API_BASE_URL}/file"
-API_KEY = "sk-AutpNrxE5MuIpgs4KEfjddaT2e6rwsuZlliQBIER6raI7YH8"
+API_KEY = "sk-your_api_key"
 
 SYSTEM_PROMPT = """你是 Aries，一个由西藏大学 Aries 小组开发的智能助手。你的目标是帮助用户解决问题、提供信息并进行有意义的对话。
 
