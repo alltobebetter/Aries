@@ -1,0 +1,348 @@
+@import url("https://fontsapi.zeoseven.com/311/main/result.css");
+
+html, body {
+    font-family: "LXGW ZhenKai GB", 'Microsoft YaHei', Arial, sans-serif;
+    font-weight: normal;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px); /* 留出更多空间给输入框 */
+    padding-bottom: 200px; /* 进一步增加底部填充，确保最后的消息距离输入框更远 */
+}
+
+.welcome-message {
+    text-align: center;
+    margin: auto 0;
+}
+
+.welcome-message h1 {
+    font-weight: normal; /* 确保标题不加粗 */
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #ff6b6b, #6b6bff, #6bff6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2rem;
+    font-weight: normal; /* 移除加粗样式 */
+    animation: gradient 5s ease infinite;
+    background-size: 300% 300%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 85%;
+    max-width: 1000px;
+    margin: 0 auto;
+    /* 与输入框保持一致的宽度 */
+}
+
+.message {
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    transition: opacity 0.2s;
+}
+
+.message-bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.user-message .message-bubble {
+    background-color: #a7d8ff; /* 改为浅蓝色 */
+    color: #333; /* 文字改为深色，以增强可读性 */
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+}
+
+.bot-message .message-bubble {
+    background-color: #f1f1f1;
+    color: #333;
+    border-bottom-left-radius: 4px;
+    margin-right: auto;
+}
+
+/* 错误消息样式 */
+.bot-message .message-bubble span[style*="color: #e74c3c"] {
+    color: #e74c3c !important;
+    font-weight: 500;
+}
+
+.input-container {
+    position: fixed;
+    bottom: 30px; /* 上移10像素 */
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.input-wrapper {
+    display: flex;
+    width: 85%; /* 进一步增加宽度 */
+    max-width: 1000px; /* 增加最大宽度 */
+    background-color: #f5f5f5; /* 与页面背景色相同 */
+    border-radius: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 10px 20px; /* 增加内边距 */
+    border: 1px solid #e0e0e0;
+}
+
+.input-container-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#user-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent !important;
+    resize: none;
+    height: 60px; /* 留出空间给按钮 */
+    padding: 15px 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    box-shadow: none;
+    color: #333;
+    overflow-y: hidden; /* 隐藏滚动条 */
+}
+
+/* 按钮容器样式 */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 10px 15px;
+    align-items: center;
+    width: 100%;
+}
+
+/* 左侧按钮组 */
+.left-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* 右侧按钮组 */
+.right-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.model-btn {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 5px 12px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 32px; /* 确保所有按钮高度一致 */
+}
+
+.model-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #bbb;
+}
+
+.model-btn.active {
+    background-color: rgba(0, 123, 255, 0.15);
+    border-color: #007bff;
+    color: #007bff;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 发送按钮样式 */
+.send-btn {
+    background-color: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* 可发送状态的发送按钮 */
+.send-btn-ready {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.send-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #bbb;
+}
+
+.send-btn:active {
+    background-color: rgba(0, 123, 255, 0.15);
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.send-btn:disabled {
+    color: #aaa;
+    border-color: #ddd;
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+#user-input:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+/* 当聊天开始后，隐藏欢迎消息 */
+.chat-started .welcome-message {
+    display: none;
+}
+
+/* 闪烁光标样式 */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #333;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* 文件上传按钮状态样式 */
+.upload-btn-loading {
+    position: relative;
+    color: #007bff;
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.upload-btn-loading::after {
+    content: '正在上传';
+    margin-left: 5px;
+    font-size: 12px;
+    animation: pulse 1.5s infinite;
+}
+
+/* 移动端上传按钮状态样式 */
+@media (max-width: 768px) {
+    .upload-btn-loading::after {
+        content: '';
+        margin-left: 0;
+    }
+
+    /* 使用背景色和边框颜色来显示上传状态 */
+    .upload-btn-loading {
+        background-color: rgba(0, 123, 255, 0.2);
+        border-color: #007bff;
+        animation: pulse 1.5s infinite;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+/* 移动端响应式样式 */
+@media (max-width: 768px) {
+    /* 在移动设备上隐藏按钮文本 */
+    .btn-text {
+        display: none;
+    }
+
+    /* 调整移动端按钮间距 */
+    .left-buttons {
+        gap: 8px;
+    }
+
+    /* 调整移动端按钮内边距 */
+    .model-btn {
+        padding: 5px 10px;
+    }
+
+    /* 调整移动端消息气泡最大宽度 */
+    .message-bubble {
+        max-width: 85%;
+    }
+
+    /* 调整移动端输入框宽度 */
+    .input-wrapper {
+        width: 90%;
+    }
+}
