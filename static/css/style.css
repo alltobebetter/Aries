@@ -16,14 +16,111 @@ body {
     flex-direction: column;
 }
 
+/* 模型选择器样式 */
+.model-selector-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 1000px;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.model-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.model-dropdown-btn {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.model-dropdown-btn:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.model-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    max-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 1001;
+}
+
+.model-dropdown::-webkit-scrollbar {
+    display: none;
+}
+
+.model-dropdown.show {
+    max-height: 350px;
+    opacity: 1;
+}
+
+.model-option {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.model-option:last-child {
+    border-bottom: none;
+}
+
+.model-option:hover {
+    background-color: #f8f9fa;
+}
+
+.model-option.selected {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.model-name {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.model-description {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
 .chat-area {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px); /* 留出更多空间给输入框 */
-    padding-bottom: 200px; /* 进一步增加底部填充，确保最后的消息距离输入框更远 */
+    height: calc(100vh - 120px);
+    padding-bottom: 200px;
 }
 
 .welcome-message {
@@ -32,7 +129,7 @@ body {
 }
 
 .welcome-message h1 {
-    font-weight: normal; /* 确保标题不加粗 */
+    font-weight: normal;
 }
 
 .gradient-text {
@@ -41,7 +138,7 @@ body {
     background-clip: text;
     color: transparent;
     font-size: 2rem;
-    font-weight: normal; /* 移除加粗样式 */
+    font-weight: normal;
     animation: gradient 5s ease infinite;
     background-size: 300% 300%;
 }
@@ -65,7 +162,6 @@ body {
     width: 85%;
     max-width: 1000px;
     margin: 0 auto;
-    /* 与输入框保持一致的宽度 */
 }
 
 .message {
@@ -79,10 +175,13 @@ body {
     max-width: 75%;
     padding: 12px 16px;
     border-radius: 18px;
-    white-space: pre-wrap;
     word-break: break-word;
     position: relative;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.user-message .message-bubble {
+    white-space: pre-wrap;
 }
 
 .user-message {
@@ -94,8 +193,8 @@ body {
 }
 
 .user-message .message-bubble {
-    background-color: #a7d8ff; /* 改为浅蓝色 */
-    color: #333; /* 文字改为深色，以增强可读性 */
+    background-color: #a7d8ff;
+    color: #333;
     border-bottom-right-radius: 4px;
     margin-left: auto;
 }
@@ -107,7 +206,122 @@ body {
     margin-right: auto;
 }
 
-/* 错误消息样式 */
+.bot-message .message-bubble p {
+    margin-bottom: 0.75rem;
+}
+
+.bot-message .message-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.bot-message .message-bubble h1,
+.bot-message .message-bubble h2,
+.bot-message .message-bubble h3,
+.bot-message .message-bubble h4,
+.bot-message .message-bubble h5,
+.bot-message .message-bubble h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.bot-message .message-bubble h1 {
+    font-size: 1.5rem;
+}
+
+.bot-message .message-bubble h2 {
+    font-size: 1.3rem;
+}
+
+.bot-message .message-bubble h3 {
+    font-size: 1.2rem;
+}
+
+.bot-message .message-bubble h4,
+.bot-message .message-bubble h5,
+.bot-message .message-bubble h6 {
+    font-size: 1.1rem;
+}
+
+.bot-message .message-bubble ul,
+.bot-message .message-bubble ol {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+}
+
+.bot-message .message-bubble li {
+    margin-bottom: 0.25rem;
+}
+
+.bot-message .message-bubble pre {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.bot-message .message-bubble code {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    padding: 0.2rem 0.4rem;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.bot-message .message-bubble pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+}
+
+.bot-message .message-bubble blockquote {
+    border-left: 4px solid #ddd;
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    color: #666;
+}
+
+.bot-message .message-bubble table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.75rem 0;
+}
+
+.bot-message .message-bubble th,
+.bot-message .message-bubble td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.bot-message .message-bubble th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+}
+
+.bot-message .message-bubble a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.bot-message .message-bubble a:hover {
+    text-decoration: underline;
+}
+
+.bot-message .message-bubble img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 0.75rem 0;
+}
+
+
 .bot-message .message-bubble span[style*="color: #e74c3c"] {
     color: #e74c3c !important;
     font-weight: 500;
@@ -115,7 +329,7 @@ body {
 
 .input-container {
     position: fixed;
-    bottom: 30px; /* 上移10像素 */
+    bottom: 40px;
     left: 0;
     right: 0;
     z-index: 100;
@@ -125,12 +339,12 @@ body {
 
 .input-wrapper {
     display: flex;
-    width: 85%; /* 进一步增加宽度 */
-    max-width: 1000px; /* 增加最大宽度 */
-    background-color: #f5f5f5; /* 与页面背景色相同 */
+    width: 85%;
+    max-width: 1000px;
+    background-color: #f5f5f5;
     border-radius: 24px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    padding: 10px 20px; /* 增加内边距 */
+    padding: 10px 20px;
     border: 1px solid #e0e0e0;
 }
 
@@ -148,16 +362,22 @@ body {
     outline: none;
     background-color: transparent !important;
     resize: none;
-    height: 60px; /* 留出空间给按钮 */
+    min-height: 60px;
+    max-height: 150px;
     padding: 15px 10px;
     font-size: 16px;
     line-height: 1.5;
     box-shadow: none;
     color: #333;
-    overflow-y: hidden; /* 隐藏滚动条 */
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-/* 按钮容器样式 */
+#user-input::-webkit-scrollbar {
+    display: none;
+}
+
 .button-container {
     display: flex;
     justify-content: space-between;
@@ -166,14 +386,12 @@ body {
     width: 100%;
 }
 
-/* 左侧按钮组 */
 .left-buttons {
     display: flex;
     gap: 15px;
     align-items: center;
 }
 
-/* 右侧按钮组 */
 .right-buttons {
     display: flex;
     align-items: center;
@@ -191,7 +409,7 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
-    height: 32px; /* 确保所有按钮高度一致 */
+    height: 32px;
 }
 
 .model-btn:hover {
@@ -207,7 +425,7 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* 发送按钮样式 */
+
 .send-btn {
     background-color: transparent;
     color: #666;
@@ -222,7 +440,7 @@ body {
     transition: all 0.2s ease;
 }
 
-/* 可发送状态的发送按钮 */
+
 .send-btn-ready {
     border-color: #007bff;
     color: #007bff;
@@ -252,12 +470,12 @@ body {
     outline: none;
 }
 
-/* 当聊天开始后，隐藏欢迎消息 */
+
 .chat-started .welcome-message {
     display: none;
 }
 
-/* 闪烁光标样式 */
+
 .cursor {
     display: inline-block;
     width: 10px;
@@ -277,7 +495,7 @@ body {
     }
 }
 
-/* 文件上传按钮状态样式 */
+
 .upload-btn-loading {
     position: relative;
     color: #007bff;
@@ -292,14 +510,13 @@ body {
     animation: pulse 1.5s infinite;
 }
 
-/* 移动端上传按钮状态样式 */
+
 @media (max-width: 768px) {
     .upload-btn-loading::after {
         content: '';
         margin-left: 0;
     }
 
-    /* 使用背景色和边框颜色来显示上传状态 */
     .upload-btn-loading {
         background-color: rgba(0, 123, 255, 0.2);
         border-color: #007bff;
@@ -319,30 +536,89 @@ body {
     }
 }
 
-/* 移动端响应式样式 */
+.privacy-policy-container {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 99;
+}
+
+.privacy-policy-text {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.gradient-link {
+    background: linear-gradient(45deg, #ff6b6b, #6b6bff, #6bff6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.gradient-link:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
 @media (max-width: 768px) {
-    /* 在移动设备上隐藏按钮文本 */
     .btn-text {
         display: none;
     }
 
-    /* 调整移动端按钮间距 */
     .left-buttons {
         gap: 8px;
     }
 
-    /* 调整移动端按钮内边距 */
     .model-btn {
         padding: 5px 10px;
     }
 
-    /* 调整移动端消息气泡最大宽度 */
     .message-bubble {
         max-width: 85%;
     }
 
-    /* 调整移动端输入框宽度 */
     .input-wrapper {
         width: 90%;
+    }
+
+    .model-selector-container {
+        top: 10px;
+        width: 90%;
+    }
+
+    .model-dropdown-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .model-dropdown {
+        width: 220px;
+    }
+
+    .model-option {
+        padding: 10px 12px;
+    }
+
+    .model-name {
+        font-size: 13px;
+    }
+
+    .model-description {
+        font-size: 11px;
+    }
+
+    .privacy-policy-container {
+        bottom: 5px;
+    }
+
+    .privacy-policy-text {
+        font-size: 10px;
     }
 }
